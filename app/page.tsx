@@ -7,6 +7,7 @@ import { MapPin, Calendar, Globe, ArrowRight, Play } from 'lucide-react';
 import { tripData } from '@/lib/tripData';
 import MapWrapper from '@/components/MapWrapper';
 import Timeline from '@/components/Timeline';
+import NorthernLightsIcon from '@/components/NorthernLightsIcon';
 
 export default function HomePage() {
   const [activeSection, setActiveSection] = useState('summary');
@@ -205,7 +206,17 @@ export default function HomePage() {
                         </span>
                       </div>
                     </div>
-                    <h4 className="text-xl font-bold text-gray-900 mb-2">{day.location}</h4>
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="text-xl font-bold text-gray-900">{day.location}</h4>
+                      {day.hasNorthernLights && (
+                        <div className="flex items-center space-x-1">
+                          <NorthernLightsIcon size={20} />
+                          <span className="text-xs font-medium text-green-600 bg-green-50 px-2 py-1 rounded-full">
+                            Aurora
+                          </span>
+                        </div>
+                      )}
+                    </div>
                     <p className="text-gray-600 text-sm mb-4 line-clamp-3">
                       {day.description}
                     </p>

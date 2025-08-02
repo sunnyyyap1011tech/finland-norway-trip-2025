@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Calendar, MapPin, ArrowRight } from 'lucide-react';
 import { tripData } from '@/lib/tripData';
+import NorthernLightsIcon from '@/components/NorthernLightsIcon';
 
 export default function ItineraryPage() {
   return (
@@ -43,10 +44,10 @@ export default function ItineraryPage() {
             <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed mb-6">
               {tripData.summary}
             </p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-6 max-w-3xl mx-auto">
               <div className="text-center">
                 <div className="text-3xl font-bold text-blue-600 mb-2">{tripData.itinerary.length}</div>
-                <div className="text-gray-600">Days</div>
+                <div className="text-gray-600">Days of Adventure</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-blue-600 mb-2">{tripData.destinations.length}</div>
@@ -58,7 +59,11 @@ export default function ItineraryPage() {
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-blue-600 mb-2">Arctic</div>
-                <div className="text-gray-600">Circle</div>
+                <div className="text-gray-600">Circle Crossing</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-blue-600 mb-2">5</div>
+                <div className="text-gray-600">Northern Lights Days</div>
               </div>
             </div>
           </div>
@@ -87,9 +92,19 @@ export default function ItineraryPage() {
                       </span>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <MapPin size={20} />
-                    <h3 className="text-xl font-semibold">{day.location}</h3>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <MapPin size={20} />
+                      <h3 className="text-xl font-semibold">{day.location}</h3>
+                    </div>
+                    {day.hasNorthernLights && (
+                      <div className="flex items-center space-x-1">
+                        <NorthernLightsIcon size={20} />
+                        <span className="text-xs font-medium text-green-200 bg-green-900/30 px-2 py-1 rounded-full">
+                          Aurora
+                        </span>
+                      </div>
+                    )}
                   </div>
                 </div>
 

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Calendar, MapPin, ArrowRight } from 'lucide-react';
 import { DayItinerary } from '@/lib/tripData';
+import NorthernLightsIcon from './NorthernLightsIcon';
 
 interface TimelineProps {
   itinerary: DayItinerary[];
@@ -61,6 +62,14 @@ export default function Timeline({ itinerary }: TimelineProps) {
                 <div className="flex items-center space-x-2 mb-4">
                   <MapPin size={20} className="text-blue-600" />
                   <h3 className="text-2xl font-bold text-gray-900">{day.location}</h3>
+                  {day.hasNorthernLights && (
+                    <div className="flex items-center space-x-1 ml-2">
+                      <NorthernLightsIcon size={24} />
+                      <span className="text-sm font-medium text-green-600 bg-green-50 px-2 py-1 rounded-full">
+                        Northern Lights
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 <p className="text-gray-600 mb-6 leading-relaxed">
