@@ -22,8 +22,8 @@ export default function ItineraryPage() {
             </Link>
             
             <div className="text-center">
-              <h1 className="text-3xl font-bold text-gray-900">Complete Itinerary</h1>
-              <p className="text-gray-600">{tripData.dates}</p>
+              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">Complete Itinerary</h1>
+              <p className="text-sm sm:text-base text-gray-600">{tripData.dates}</p>
             </div>
 
             <div className="w-32"></div> {/* Spacer for centering */}
@@ -31,15 +31,15 @@ export default function ItineraryPage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="space-y-8"
+          className="space-y-6"
         >
           {/* Itinerary Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
             {tripData.itinerary.map((day, index) => (
               <motion.div
                 key={day.date}
@@ -49,7 +49,7 @@ export default function ItineraryPage() {
                 className="bg-white rounded-xl shadow-lg overflow-hidden card-hover"
               >
                 {/* Day Header */}
-                <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6">
+                <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4">
                   <div className="flex items-center justify-between mb-2">
                     <div className="text-2xl font-bold">Day {day.dayNumber}</div>
                     <div className="text-sm opacity-90">
@@ -79,7 +79,7 @@ export default function ItineraryPage() {
                 </div>
 
                 {/* Day Content */}
-                <div className="p-6">
+                <div className="p-4">
                   <p className="text-gray-600 text-sm mb-4 line-clamp-3">
                     {day.description}
                   </p>
@@ -177,8 +177,8 @@ export default function ItineraryPage() {
               </p>
             </div>
 
-            {/* Quick Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+                          {/* Quick Stats */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 mb-8">
               <div className="bg-blue-50 p-4 rounded-lg text-center">
                 <div className="text-2xl font-bold text-blue-600 mb-1">{tripData.itinerary.length}</div>
                 <div className="text-sm text-gray-600">Days of Adventure</div>
@@ -201,7 +201,7 @@ export default function ItineraryPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
               {/* Destinations Visited */}
               <div>
                 <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
@@ -292,27 +292,27 @@ export default function ItineraryPage() {
               </div>
             </div>
 
-            {/* Journey Map */}
-            <div className="mt-8">
-              <h3 className="text-xl font-bold text-gray-900 mb-4 text-center">Journey Route</h3>
-              <div className="bg-gray-50 rounded-lg p-4">
-                <div className="flex items-center justify-center space-x-4 text-sm text-gray-600">
-                  <span className="font-semibold">Helsinki</span>
-                  <span>→</span>
-                  <span className="font-semibold">Tallinn</span>
-                  <span>→</span>
-                  <span className="font-semibold">Helsinki</span>
-                  <span>→</span>
-                  <span className="font-semibold">Rovaniemi</span>
-                  <span>→</span>
-                  <span className="font-semibold">Levi</span>
-                  <span>→</span>
-                  <span className="font-semibold">Kilpisjärvi</span>
-                  <span>→</span>
-                  <span className="font-semibold">Tromsø</span>
+                          {/* Journey Map */}
+              <div className="mt-8">
+                <h3 className="text-xl font-bold text-gray-900 mb-4 text-center">Journey Route</h3>
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600">
+                    <span className="font-semibold">Helsinki</span>
+                    <span>→</span>
+                    <span className="font-semibold">Tallinn</span>
+                    <span>→</span>
+                    <span className="font-semibold">Helsinki</span>
+                    <span>→</span>
+                    <span className="font-semibold">Rovaniemi</span>
+                    <span>→</span>
+                    <span className="font-semibold">Levi</span>
+                    <span>→</span>
+                    <span className="font-semibold">Kilpisjärvi</span>
+                    <span>→</span>
+                    <span className="font-semibold">Tromsø</span>
+                  </div>
                 </div>
               </div>
-            </div>
           </div>
         </motion.div>
       </div>

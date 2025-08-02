@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Calendar, MapPin, Clock, Hotel, Car, Play, Image } from 'lucide-react';
 import { tripData } from '@/lib/tripData';
+import NorthernLightsIcon from '@/components/NorthernLightsIcon';
 
 export default function DayDetailPage() {
   const params = useParams();
@@ -37,19 +38,19 @@ export default function DayDetailPage() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* Header */}
       <div className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <Link
               href="/"
-              className="flex items-center space-x-2 text-gray-600 hover:text-blue-600 transition-colors"
+              className="flex items-center space-x-2 text-gray-600 hover:text-blue-600 transition-colors text-sm sm:text-base"
             >
-              <ArrowLeft size={20} />
+              <ArrowLeft size={16} className="sm:w-5 sm:h-5" />
               <span>Back to Journey</span>
             </Link>
             
-            <div className="text-center">
-              <h1 className="text-2xl font-bold text-gray-900">Day {dayData.dayNumber}</h1>
-              <p className="text-gray-600">
+            <div className="text-center order-first sm:order-none">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Day {dayData.dayNumber}</h1>
+              <p className="text-sm sm:text-base text-gray-600">
                 {new Date(dayData.date).toLocaleDateString('en-US', {
                   weekday: 'long',
                   month: 'long',
@@ -59,11 +60,11 @@ export default function DayDetailPage() {
               </p>
             </div>
 
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center justify-center sm:justify-end space-x-2 sm:space-x-4">
               {prevDay && (
                 <Link
                   href={`/day/${prevDay.date.split(' ')[0]}`}
-                  className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors"
+                  className="bg-gray-100 text-gray-700 px-3 sm:px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors text-sm"
                 >
                   Previous
                 </Link>
@@ -71,7 +72,7 @@ export default function DayDetailPage() {
               {nextDay && (
                 <Link
                   href={`/day/${nextDay.date.split(' ')[0]}`}
-                  className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                  className="bg-blue-600 text-white px-3 sm:px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm"
                 >
                   Next
                 </Link>
@@ -81,16 +82,16 @@ export default function DayDetailPage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="space-y-8"
+          className="space-y-6"
         >
           {/* Hero Section */}
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-            <div className="relative h-64 md:h-96">
+            <div className="relative h-48 md:h-80">
               {dayData.images && dayData.images.length > 0 ? (
                 <img
                   src={dayData.images[0]}
@@ -107,6 +108,12 @@ export default function DayDetailPage() {
                 <div className="flex items-center space-x-2 mb-2">
                   <MapPin size={24} />
                   <h2 className="text-3xl md:text-4xl font-bold">{dayData.location}</h2>
+                  {dayData.hasNorthernLights && (
+                    <div className="flex items-center space-x-2 ml-4">
+                      <NorthernLightsIcon size={28} />
+                      <span className="text-green-300 font-semibold text-lg">Aurora</span>
+                    </div>
+                  )}
                 </div>
                 <div className="flex items-center space-x-4 text-lg">
                   <div className="flex items-center space-x-1">
@@ -119,16 +126,31 @@ export default function DayDetailPage() {
           </div>
 
           {/* Description */}
-          <div className="bg-white rounded-xl shadow-lg p-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">About This Day</h3>
-            <p className="text-gray-600 text-lg leading-relaxed">
+          <div className="bg-white rounded-xl shadow-lg p-6">
+            <h3 className="text-xl font-bold text-gray-900 mb-3">About This Day</h3>
+            <p className="text-gray-600 text-base leading-relaxed">
               {dayData.description}
             </p>
           </div>
 
+          {/* Main Highlight */}
+          {dayData.mainHighlight && (
+            <div className="bg-white rounded-xl shadow-lg p-6">
+              <h3 className="text-xl font-bold text-gray-900 mb-3 flex items-center">
+                <span className="w-3 h-3 bg-yellow-500 rounded-full mr-3"></span>
+                Main Highlight of the Day
+              </h3>
+              <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border-l-4 border-yellow-500 p-4 rounded-r-lg">
+                <p className="text-gray-800 text-base font-medium leading-relaxed">
+                  {dayData.mainHighlight}
+                </p>
+              </div>
+            </div>
+          )}
+
           {/* Activities */}
-          <div className="bg-white rounded-xl shadow-lg p-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">Activities</h3>
+          <div className="bg-white rounded-xl shadow-lg p-6">
+            <h3 className="text-xl font-bold text-gray-900 mb-4">Activities</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {dayData.activities.map((activity, index) => (
                 <motion.div
@@ -136,12 +158,12 @@ export default function DayDetailPage() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="flex items-start space-x-3 p-4 bg-gray-50 rounded-lg"
+                  className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg"
                 >
-                  <div className="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm mt-1">
-                    {index + 1}
-                  </div>
-                  <span className="text-gray-700 font-medium">{activity}</span>
+                                      <div className="bg-blue-600 text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs mt-1">
+                      {index + 1}
+                    </div>
+                    <span className="text-gray-700 font-medium text-sm">{activity}</span>
                 </motion.div>
               ))}
             </div>
@@ -155,7 +177,12 @@ export default function DayDetailPage() {
                   <Hotel size={24} className="text-blue-600" />
                   <h3 className="text-xl font-bold text-gray-900">Accommodation</h3>
                 </div>
-                <p className="text-gray-600">{dayData.accommodation}</p>
+                <div className="space-y-2">
+                  <p className="text-gray-600 font-medium">{dayData.accommodation}</p>
+                  {dayData.roomBedType && (
+                    <p className="text-gray-500 text-sm">Room Type: {dayData.roomBedType}</p>
+                  )}
+                </div>
               </div>
             )}
 

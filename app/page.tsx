@@ -39,7 +39,7 @@ export default function HomePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            Finland & Norway Adventure
+            Finland, Estonia & Norway Adventure
           </motion.h1>
           <motion.p 
             className="text-xl md:text-2xl mb-2 max-w-3xl mx-auto"
@@ -61,16 +61,17 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
+            className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-4"
           >
             <button 
               onClick={() => scrollToContent('summary')}
-              className="bg-white text-blue-900 px-8 py-3 rounded-full font-semibold hover:bg-blue-50 transition-colors mr-4"
+              className="bg-white text-blue-900 px-6 sm:px-8 py-3 rounded-full font-semibold hover:bg-blue-50 transition-colors text-sm sm:text-base"
             >
               Explore Journey
             </button>
             <button 
               onClick={() => scrollToContent('map')}
-              className="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-blue-900 transition-colors"
+              className="border-2 border-white text-white px-6 sm:px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-blue-900 transition-colors text-sm sm:text-base"
             >
               View Map
             </button>
@@ -81,7 +82,7 @@ export default function HomePage() {
       {/* Navigation */}
       <nav className="sticky top-0 bg-white/95 backdrop-blur-sm z-50 border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-center space-x-8 py-4">
+          <div className="flex justify-center space-x-2 sm:space-x-8 py-4 overflow-x-auto">
             {[
               { id: 'summary', label: 'Summary', icon: Globe },
               { id: 'map', label: 'Interactive Map', icon: MapPin },
@@ -90,14 +91,14 @@ export default function HomePage() {
               <button
                 key={id}
                 onClick={() => setActiveSection(id)}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
+                className={`flex items-center space-x-1 sm:space-x-2 px-3 sm:px-4 py-2 rounded-lg transition-colors whitespace-nowrap ${
                   activeSection === id
                     ? 'bg-blue-100 text-blue-700'
                     : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
                 }`}
               >
-                <Icon size={20} />
-                <span className="font-medium">{label}</span>
+                <Icon size={16} className="sm:w-5 sm:h-5" />
+                <span className="font-medium text-sm sm:text-base">{label}</span>
               </button>
             ))}
           </div>
@@ -105,28 +106,28 @@ export default function HomePage() {
       </nav>
 
       {/* Content Sections */}
-      <div ref={contentRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div ref={contentRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Summary Section */}
         {activeSection === 'summary' && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="space-y-12"
+            className="space-y-8"
           >
             {/* Journey Summary */}
-            <section className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-4xl font-bold text-gray-900 mb-6 text-center">Journey Summary</h2>
+            <section className="bg-white rounded-xl shadow-lg p-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4 text-center">Journey Summary</h2>
               
               {/* Trip Overview */}
-              <div className="text-center mb-8">
-                <p className="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
+              <div className="text-center mb-6">
+                <p className="text-base text-gray-600 max-w-4xl mx-auto leading-relaxed">
                   {tripData.summary}
                 </p>
               </div>
 
               {/* Quick Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 mb-6">
                 <div className="bg-blue-50 p-4 rounded-lg text-center">
                   <div className="text-2xl font-bold text-blue-600 mb-1">{tripData.itinerary.length}</div>
                   <div className="text-sm text-gray-600">Days of Adventure</div>
@@ -149,24 +150,24 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
                 {/* Destinations Visited */}
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
-                    <MapPin size={20} className="text-blue-600 mr-2" />
+                  <h3 className="text-lg font-bold text-gray-900 mb-3 flex items-center">
+                    <MapPin size={18} className="text-blue-600 mr-2" />
                     Destinations Visited
                   </h3>
-                  <div className="space-y-3">
+                  <div className="space-y-2">
                     {tripData.destinations.map((destination, index) => (
-                      <div key={destination.id} className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-                        <div className="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">
-                          {index + 1}
+                                              <div key={destination.id} className="flex items-center space-x-3 p-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                          <div className="bg-blue-600 text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs">
+                            {index + 1}
+                          </div>
+                          <div>
+                            <div className="font-semibold text-gray-900 text-sm">{destination.name}</div>
+                            <div className="text-xs text-gray-600">{destination.country}</div>
+                          </div>
                         </div>
-                        <div>
-                          <div className="font-semibold text-gray-900">{destination.name}</div>
-                          <div className="text-sm text-gray-600">{destination.country}</div>
-                        </div>
-                      </div>
                     ))}
                   </div>
                 </div>
@@ -207,34 +208,34 @@ export default function HomePage() {
 
                 {/* Unique Activities */}
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
-                    <Calendar size={20} className="text-blue-600 mr-2" />
+                  <h3 className="text-lg font-bold text-gray-900 mb-3 flex items-center">
+                    <Calendar size={18} className="text-blue-600 mr-2" />
                     Unique Activities
                   </h3>
-                  <div className="space-y-3">
-                    <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                  <div className="space-y-2">
+                    <div className="flex items-center space-x-3 p-2 bg-gray-50 rounded-lg">
                       <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                      <span className="text-gray-700">Aurora Ice Floating</span>
+                      <span className="text-gray-700 text-sm">Aurora Ice Floating</span>
                     </div>
-                    <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                    <div className="flex items-center space-x-3 p-2 bg-gray-50 rounded-lg">
                       <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                      <span className="text-gray-700">Mushroom hunting tour</span>
+                      <span className="text-gray-700 text-sm">Mushroom hunting tour</span>
                     </div>
-                    <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                    <div className="flex items-center space-x-3 p-2 bg-gray-50 rounded-lg">
                       <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                      <span className="text-gray-700">E-Fatbike adventure</span>
+                      <span className="text-gray-700 text-sm">E-Fatbike adventure</span>
                     </div>
-                    <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                    <div className="flex items-center space-x-3 p-2 bg-gray-50 rounded-lg">
                       <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-                      <span className="text-gray-700">Reindeer sledding</span>
+                      <span className="text-gray-700 text-sm">Reindeer sledding</span>
                     </div>
-                    <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                    <div className="flex items-center space-x-3 p-2 bg-gray-50 rounded-lg">
                       <div className="w-2 h-2 bg-indigo-500 rounded-full"></div>
-                      <span className="text-gray-700">Santa Claus Express train</span>
+                      <span className="text-gray-700 text-sm">Santa Claus Express train</span>
                     </div>
-                    <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                    <div className="flex items-center space-x-3 p-2 bg-gray-50 rounded-lg">
                       <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                      <span className="text-gray-700">Arctic Circle crossing</span>
+                      <span className="text-gray-700 text-sm">Arctic Circle crossing</span>
                     </div>
                   </div>
                 </div>
@@ -244,7 +245,7 @@ export default function HomePage() {
               <div className="mt-8">
                 <h3 className="text-xl font-bold text-gray-900 mb-4 text-center">Journey Route</h3>
                 <div className="bg-gray-50 rounded-lg p-4">
-                  <div className="flex items-center justify-center space-x-4 text-sm text-gray-600">
+                  <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600">
                     <span className="font-semibold">Helsinki</span>
                     <span>→</span>
                     <span className="font-semibold">Tallinn</span>
@@ -265,8 +266,8 @@ export default function HomePage() {
 
             {/* Destinations Preview */}
             <section>
-              <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center">Destinations</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6 text-center">Destinations</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                 {tripData.destinations.map((destination, index) => (
                   <motion.div
                     key={destination.id}
@@ -275,20 +276,20 @@ export default function HomePage() {
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     className="bg-white rounded-xl shadow-lg overflow-hidden card-hover"
                   >
-                    <div className="relative h-48">
+                    <div className="relative h-40">
                       <img
                         src={destination.imageUrl}
                         alt={destination.name}
                         className="w-full h-full object-cover"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                      <div className="absolute bottom-4 left-4 text-white">
-                        <h4 className="text-xl font-bold">{destination.name}</h4>
-                        <p className="text-sm opacity-90">{destination.country}</p>
+                      <div className="absolute bottom-3 left-3 text-white">
+                        <h4 className="text-lg font-bold">{destination.name}</h4>
+                        <p className="text-xs opacity-90">{destination.country}</p>
                       </div>
                     </div>
-                    <div className="p-6">
-                      <p className="text-gray-600 text-sm leading-relaxed">
+                    <div className="p-4">
+                      <p className="text-gray-600 text-xs leading-relaxed">
                         {destination.description}
                       </p>
                     </div>
@@ -299,8 +300,8 @@ export default function HomePage() {
 
             {/* Daily Itinerary Preview */}
             <section>
-              <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center">Daily Itinerary</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6 text-center">Daily Itinerary</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                 {tripData.itinerary.slice(0, 6).map((day, index) => (
                   <motion.div
                     key={day.date}
@@ -310,25 +311,25 @@ export default function HomePage() {
                     className="bg-white rounded-xl shadow-lg p-6 card-hover"
                   >
                     <div className="flex items-center justify-between mb-4">
-                      <div className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold">
+                      <div className="bg-blue-100 text-blue-700 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-semibold">
                         Day {day.dayNumber}
                       </div>
-                      <div className="text-gray-500 text-sm">
+                      <div className="text-gray-500 text-xs sm:text-sm">
                         {new Date(day.date).toLocaleDateString('en-US', { 
                           month: 'short', 
                           day: 'numeric' 
                         })}
-                        <span className="ml-2 text-blue-600 font-medium">
+                        <span className="ml-1 sm:ml-2 text-blue-600 font-medium">
                           {day.date.split(' ')[1]?.replace(/[()]/g, '')}
                         </span>
                       </div>
                     </div>
                     <div className="flex items-center justify-between mb-2">
-                      <h4 className="text-xl font-bold text-gray-900">{day.location}</h4>
+                      <h4 className="text-lg sm:text-xl font-bold text-gray-900">{day.location}</h4>
                       {day.hasNorthernLights && (
                         <div className="flex items-center space-x-1">
-                          <NorthernLightsIcon size={20} />
-                          <span className="text-xs font-medium text-green-600 bg-green-50 px-2 py-1 rounded-full">
+                          <NorthernLightsIcon size={16} className="sm:w-5 sm:h-5" />
+                          <span className="text-xs font-medium text-green-600 bg-green-50 px-1 sm:px-2 py-1 rounded-full">
                             Aurora
                           </span>
                         </div>
