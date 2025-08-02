@@ -2,11 +2,62 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Calendar, MapPin, ArrowRight, Bed, Car } from 'lucide-react';
+import { ArrowLeft, Calendar, MapPin, ArrowRight, Bed, Car, Search, X } from 'lucide-react';
 import { tripData } from '@/lib/tripData';
 import NorthernLightsIcon from '@/components/NorthernLightsIcon';
+import { useState, useMemo } from 'react';
 
 export default function ItineraryPage() {
+  const [searchTerm, setSearchTerm] = useState('');
+
+  // Function to highlight searched text
+  const highlightText = (text: string, searchTerm: string) => {
+    if (!searchTerm.trim()) return text;
+    
+    const regex = new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    const parts = text.split(regex);
+    
+    return parts.map((part, index) => 
+      regex.test(part) ? (
+        <span key={index} className="bg-yellow-200 font-medium">{part}</span>
+      ) : (
+        part
+      )
+    );
+  };
+
+  // Filter itinerary based on search term
+  const filteredItinerary = useMemo(() => {
+    if (!searchTerm.trim()) {
+      return tripData.itinerary;
+    }
+
+    const searchLower = searchTerm.toLowerCase();
+    return tripData.itinerary.filter(day => {
+      // Search in location
+      if (day.location.toLowerCase().includes(searchLower)) return true;
+      
+      // Search in description
+      if (day.description.toLowerCase().includes(searchLower)) return true;
+      
+      // Search in main highlight
+      if (day.mainHighlight && day.mainHighlight.toLowerCase().includes(searchLower)) return true;
+      
+      // Search in activities
+      if (day.activities.some(activity => activity.toLowerCase().includes(searchLower))) return true;
+      
+      // Search in accommodation
+      if (day.accommodation && day.accommodation.toLowerCase().includes(searchLower)) return true;
+      
+      // Search in transport
+      if (day.transport && day.transport.toLowerCase().includes(searchLower)) return true;
+      
+      // Search in date
+      if (day.date.toLowerCase().includes(searchLower)) return true;
+      
+      return false;
+    });
+  }, [searchTerm]);
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* Header */}
@@ -38,34 +89,80 @@ export default function ItineraryPage() {
           transition={{ duration: 0.5 }}
           className="space-y-6"
         >
+          {/* Search Box */}
+          <div className="bg-white rounded-xl shadow-lg p-6">
+            <div className="flex items-center space-x-4">
+              <div className="flex-1 relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                <input
+                  type="text"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  placeholder="Search locations, activities, highlights, accommodations..."
+                  className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+                {searchTerm && (
+                  <button
+                    onClick={() => setSearchTerm('')}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  >
+                    <X size={20} />
+                  </button>
+                )}
+              </div>
+              {searchTerm && (
+                <div className="text-sm text-gray-600 bg-gray-100 px-3 py-2 rounded-lg">
+                  {filteredItinerary.length} of {tripData.itinerary.length} days
+                </div>
+              )}
+            </div>
+          </div>
+
           {/* Itinerary Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-            {tripData.itinerary.map((day, index) => (
-              <motion.div
-                key={day.date}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white rounded-xl shadow-lg overflow-hidden card-hover"
-              >
+          {filteredItinerary.length === 0 && searchTerm ? (
+            <div className="text-center py-12">
+              <div className="bg-white rounded-xl shadow-lg p-8">
+                <Search className="mx-auto text-gray-400 mb-4" size={48} />
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">No results found</h3>
+                <p className="text-gray-600 mb-4">
+                  No days match your search for "{searchTerm}"
+                </p>
+                <button
+                  onClick={() => setSearchTerm('')}
+                  className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  Clear Search
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+              {filteredItinerary.map((day, index) => (
+                <motion.div
+                  key={day.date}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="bg-white rounded-xl shadow-lg overflow-hidden card-hover"
+                >
                 {/* Day Header */}
                 <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4">
                   <div className="flex items-center justify-between mb-2">
                     <div className="text-2xl font-bold">Day {day.dayNumber}</div>
                     <div className="text-sm opacity-90">
-                      {new Date(day.date).toLocaleDateString('en-US', { 
+                      {highlightText(new Date(day.date).toLocaleDateString('en-US', { 
                         month: 'short', 
                         day: 'numeric' 
-                      })}
+                      }), searchTerm)}
                       <span className="ml-2 font-medium">
-                        {day.date.split(' ')[1]?.replace(/[()]/g, '')}
+                        {highlightText(day.date.split(' ')[1]?.replace(/[()]/g, '') || '', searchTerm)}
                       </span>
                     </div>
                   </div>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
                       <MapPin size={20} />
-                      <h3 className="text-xl font-semibold">{day.location}</h3>
+                      <h3 className="text-xl font-semibold">{highlightText(day.location, searchTerm)}</h3>
                     </div>
                     {day.hasNorthernLights && (
                       <div className="flex items-center space-x-1">
@@ -81,7 +178,7 @@ export default function ItineraryPage() {
                 {/* Day Content */}
                 <div className="p-4">
                   <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-                    {day.description}
+                    {highlightText(day.description, searchTerm)}
                   </p>
 
                   {/* Main Highlight */}
@@ -93,7 +190,7 @@ export default function ItineraryPage() {
                       </h4>
                       <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border-l-4 border-yellow-500 p-3 rounded-r-lg">
                         <p className="text-gray-800 font-medium text-sm">
-                          {day.mainHighlight}
+                          {highlightText(day.mainHighlight, searchTerm)}
                         </p>
                       </div>
                     </div>
@@ -106,7 +203,7 @@ export default function ItineraryPage() {
                       {day.activities.slice(0, 3).map((activity, activityIndex) => (
                         <div key={activityIndex} className="flex items-center space-x-2 text-sm text-gray-600">
                           <div className="w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
-                          <span className="truncate">{activity}</span>
+                          <span className="truncate">{highlightText(activity, searchTerm)}</span>
                         </div>
                       ))}
                       {day.activities.length > 3 && (
@@ -122,13 +219,13 @@ export default function ItineraryPage() {
                     {day.accommodation && (
                       <div className="flex items-center space-x-2 text-sm text-gray-600">
                         <Bed size={16} />
-                        <span className="truncate">{day.accommodation}</span>
+                        <span className="truncate">{highlightText(day.accommodation, searchTerm)}</span>
                       </div>
                     )}
                     {day.transport && (
                       <div className="flex items-center space-x-2 text-sm text-gray-600">
                         <Car size={16} />
-                        <span className="truncate">{day.transport}</span>
+                        <span className="truncate">{highlightText(day.transport, searchTerm)}</span>
                       </div>
                     )}
                   </div>
@@ -164,7 +261,8 @@ export default function ItineraryPage() {
                 </div>
               </motion.div>
             ))}
-          </div>
+            </div>
+          )}
 
           {/* Journey Summary */}
           <div className="bg-white rounded-xl shadow-lg p-8">
