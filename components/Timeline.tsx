@@ -352,52 +352,6 @@ export default function Timeline({ itinerary }: TimelineProps) {
           </div>
 
           <div className="space-y-4">
-            {/* Search Box */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Search</label>
-              <div className="flex space-x-2">
-                <input
-                  type="text"
-                  value={filterValue}
-                  onChange={(e) => setFilterValue(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  placeholder="Search locations, activities, descriptions..."
-                  className="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-                <button
-                  onClick={handleSearch}
-                  className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
-                >
-                  Filter
-                </button>
-              </div>
-              
-              {/* Search Results Navigation */}
-              {searchResults.length > 0 && (
-                <div className="mt-3 flex items-center justify-between">
-                  <div className="text-sm text-gray-600">
-                    {searchResults.length} result{searchResults.length !== 1 ? 's' : ''} • {currentSearchIndex + 1} of {searchResults.length}
-                  </div>
-                  <div className="flex space-x-2">
-                    <button
-                      onClick={navigateToPrevious}
-                      disabled={currentSearchIndex === 0}
-                      className="px-3 py-1 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      ← Previous
-                    </button>
-                    <button
-                      onClick={navigateToNext}
-                      disabled={currentSearchIndex === searchResults.length - 1}
-                      className="px-3 py-1 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      Next →
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-
             {/* Combined Day/Date Dropdown */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Quick Jump</label>
@@ -441,12 +395,81 @@ export default function Timeline({ itinerary }: TimelineProps) {
               </select>
             </div>
 
+            {/* Search Box */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Search</label>
+              <div className="flex space-x-2">
+                <input
+                  type="text"
+                  value={filterValue}
+                  onChange={(e) => setFilterValue(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  placeholder="Search locations, activities, descriptions..."
+                  className="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <button
+                  onClick={handleSearch}
+                  className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                >
+                  Filter
+                </button>
+              </div>
+              
+              {/* Search Results Navigation */}
+              {searchResults.length > 0 && (
+                <div className="mt-3 bg-blue-50 rounded-lg p-3">
+                  <div className="flex items-center justify-between">
+                    <div className="text-sm text-blue-700 font-medium">
+                      {searchResults.length} result{searchResults.length !== 1 ? 's' : ''} • {currentSearchIndex + 1} of {searchResults.length}
+                    </div>
+                    <div className="flex space-x-1">
+                      <button
+                        onClick={navigateToPrevious}
+                        disabled={currentSearchIndex === 0}
+                        className="p-2 text-blue-600 hover:bg-blue-100 rounded-lg disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                        title="Previous result"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                        </svg>
+                      </button>
+                      <button
+                        onClick={navigateToNext}
+                        disabled={currentSearchIndex === searchResults.length - 1}
+                        className="p-2 text-blue-600 hover:bg-blue-100 rounded-lg disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                        title="Next result"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
             {/* Clear Filter Button */}
-            {filterValue && (
+            {(filterValue || searchResults.length > 0) && (
               <button
                 onClick={() => {
                   setFilterValue('');
                   setFilterType('all');
+                  setSearchResults([]);
+                  setCurrentSearchIndex(0);
+                  // Remove all search highlights
+                  Object.keys(timelineRefs.current).forEach(key => {
+                    const element = timelineRefs.current[key];
+                    if (element) {
+                      element.querySelectorAll('.search-highlight').forEach(el => {
+                        const parent = el.parentNode;
+                        if (parent) {
+                          parent.replaceChild(document.createTextNode(el.textContent || ''), el);
+                          parent.normalize();
+                        }
+                      });
+                    }
+                  });
                 }}
                 className="w-full bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors text-sm font-medium"
               >
