@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { MapPin, Calendar, Globe, ArrowRight, Play } from 'lucide-react';
@@ -10,6 +10,14 @@ import Timeline from '@/components/Timeline';
 
 export default function HomePage() {
   const [activeSection, setActiveSection] = useState('summary');
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  const scrollToContent = (section: string) => {
+    setActiveSection(section);
+    if (contentRef.current) {
+      contentRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <div className="min-h-screen">
@@ -33,12 +41,20 @@ export default function HomePage() {
             Finland & Norway Adventure
           </motion.h1>
           <motion.p 
-            className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto"
+            className="text-xl md:text-2xl mb-2 max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             September 28 - October 14, 2025
+          </motion.p>
+          <motion.p 
+            className="text-lg md:text-xl mb-8 max-w-3xl mx-auto text-blue-200"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          >
+            Sunday - Tuesday • 17 Days of Adventure
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -46,13 +62,13 @@ export default function HomePage() {
             transition={{ duration: 0.8, delay: 0.4 }}
           >
             <button 
-              onClick={() => setActiveSection('summary')}
+              onClick={() => scrollToContent('summary')}
               className="bg-white text-blue-900 px-8 py-3 rounded-full font-semibold hover:bg-blue-50 transition-colors mr-4"
             >
               Explore Journey
             </button>
             <button 
-              onClick={() => setActiveSection('map')}
+              onClick={() => scrollToContent('map')}
               className="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-blue-900 transition-colors"
             >
               View Map
@@ -88,7 +104,7 @@ export default function HomePage() {
       </nav>
 
       {/* Content Sections */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div ref={contentRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Summary Section */}
         {activeSection === 'summary' && (
           <motion.div
@@ -106,7 +122,7 @@ export default function HomePage() {
             </section>
 
             {/* Quick Stats */}
-            <section className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <section className="grid grid-cols-1 md:grid-cols-5 gap-6">
               <div className="bg-white p-6 rounded-xl shadow-lg text-center">
                 <div className="text-3xl font-bold text-blue-600 mb-2">{tripData.itinerary.length}</div>
                 <div className="text-gray-600">Days of Adventure</div>
@@ -122,6 +138,10 @@ export default function HomePage() {
               <div className="bg-white p-6 rounded-xl shadow-lg text-center">
                 <div className="text-3xl font-bold text-blue-600 mb-2">Arctic</div>
                 <div className="text-gray-600">Circle Crossing</div>
+              </div>
+              <div className="bg-white p-6 rounded-xl shadow-lg text-center">
+                <div className="text-3xl font-bold text-blue-600 mb-2">5</div>
+                <div className="text-gray-600">Northern Lights Days</div>
               </div>
             </section>
 
@@ -180,6 +200,9 @@ export default function HomePage() {
                           month: 'short', 
                           day: 'numeric' 
                         })}
+                        <span className="ml-2 text-blue-600 font-medium">
+                          {day.date.split(' ')[1]?.replace(/[()]/g, '')}
+                        </span>
                       </div>
                     </div>
                     <h4 className="text-xl font-bold text-gray-900 mb-2">{day.location}</h4>
@@ -187,7 +210,7 @@ export default function HomePage() {
                       {day.description}
                     </p>
                     <Link
-                      href={`/day/${day.date}`}
+                      href={`/day/${day.date.split(' ')[0]}`}
                       className="inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold text-sm"
                     >
                       View Details

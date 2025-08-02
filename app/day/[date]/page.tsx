@@ -10,7 +10,7 @@ export default function DayDetailPage() {
   const params = useParams();
   const date = params.date as string;
   
-  const dayData = tripData.itinerary.find(day => day.date === date);
+  const dayData = tripData.itinerary.find(day => day.date.split(' ')[0] === date);
   
   if (!dayData) {
     return (
@@ -62,7 +62,7 @@ export default function DayDetailPage() {
             <div className="flex items-center space-x-4">
               {prevDay && (
                 <Link
-                  href={`/day/${prevDay.date}`}
+                  href={`/day/${prevDay.date.split(' ')[0]}`}
                   className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors"
                 >
                   Previous
@@ -70,7 +70,7 @@ export default function DayDetailPage() {
               )}
               {nextDay && (
                 <Link
-                  href={`/day/${nextDay.date}`}
+                  href={`/day/${nextDay.date.split(' ')[0]}`}
                   className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   Next
@@ -225,7 +225,7 @@ export default function DayDetailPage() {
           <div className="flex items-center justify-between bg-white rounded-xl shadow-lg p-6">
             {prevDay ? (
               <Link
-                href={`/day/${prevDay.date}`}
+                href={`/day/${prevDay.date.split(' ')[0]}`}
                 className="flex items-center space-x-2 text-gray-600 hover:text-blue-600 transition-colors"
               >
                 <ArrowLeft size={20} />
@@ -240,7 +240,7 @@ export default function DayDetailPage() {
 
             {nextDay ? (
               <Link
-                href={`/day/${nextDay.date}`}
+                href={`/day/${nextDay.date.split(' ')[0]}`}
                 className="flex items-center space-x-2 text-gray-600 hover:text-blue-600 transition-colors"
               >
                 <div className="text-right">

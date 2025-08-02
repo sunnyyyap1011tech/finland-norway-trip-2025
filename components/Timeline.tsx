@@ -50,7 +50,7 @@ export default function Timeline({ itinerary }: TimelineProps) {
                     </div>
                   </div>
                   <Link
-                    href={`/day/${day.date}`}
+                    href={`/day/${day.date.split(' ')[0]}`}
                     className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors inline-flex items-center space-x-2"
                   >
                     <span>Details</span>
@@ -88,7 +88,19 @@ export default function Timeline({ itinerary }: TimelineProps) {
                   {day.accommodation && (
                     <div className="bg-gray-50 p-3 rounded-lg">
                       <span className="font-semibold text-gray-700">Accommodation:</span>
-                      <p className="text-gray-600 mt-1">{day.accommodation}</p>
+                      <p className="text-gray-600 mt-1">
+                        <a 
+                          href={`https://www.google.com/maps/search/${encodeURIComponent(day.accommodation)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:text-blue-800 transition-colors cursor-pointer"
+                        >
+                          {day.accommodation}
+                        </a>
+                        {day.roomBedType && (
+                          <span className="text-gray-500"> ({day.roomBedType})</span>
+                        )}
+                      </p>
                     </div>
                   )}
                   {day.transport && (

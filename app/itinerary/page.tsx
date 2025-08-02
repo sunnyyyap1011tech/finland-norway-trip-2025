@@ -82,6 +82,9 @@ export default function ItineraryPage() {
                         month: 'short', 
                         day: 'numeric' 
                       })}
+                      <span className="ml-2 font-medium">
+                        {day.date.split(' ')[1]?.replace(/[()]/g, '')}
+                      </span>
                     </div>
                   </div>
                   <div className="flex items-center space-x-2">
@@ -152,7 +155,7 @@ export default function ItineraryPage() {
 
                   {/* Action Button */}
                   <Link
-                    href={`/day/${day.date}`}
+                    href={`/day/${day.date.split(' ')[0]}`}
                     className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors inline-flex items-center justify-center space-x-2 font-semibold"
                   >
                     <span>View Details</span>
