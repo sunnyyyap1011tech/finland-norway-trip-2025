@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Calendar, MapPin, ArrowRight } from 'lucide-react';
+import { ArrowLeft, Calendar, MapPin, ArrowRight, Bed, Car } from 'lucide-react';
 import { tripData } from '@/lib/tripData';
 import NorthernLightsIcon from '@/components/NorthernLightsIcon';
 
@@ -38,36 +38,6 @@ export default function ItineraryPage() {
           transition={{ duration: 0.5 }}
           className="space-y-8"
         >
-          {/* Trip Overview */}
-          <div className="bg-white rounded-xl shadow-lg p-8 text-center">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Journey Overview</h2>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed mb-6">
-              {tripData.summary}
-            </p>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-6 max-w-3xl mx-auto">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-blue-600 mb-2">{tripData.itinerary.length}</div>
-                <div className="text-gray-600">Days of Adventure</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-blue-600 mb-2">{tripData.destinations.length}</div>
-                <div className="text-gray-600">Destinations</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-blue-600 mb-2">2</div>
-                <div className="text-gray-600">Countries</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-blue-600 mb-2">Arctic</div>
-                <div className="text-gray-600">Circle Crossing</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-blue-600 mb-2">5</div>
-                <div className="text-gray-600">Northern Lights Days</div>
-              </div>
-            </div>
-          </div>
-
           {/* Itinerary Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {tripData.itinerary.map((day, index) => (
@@ -114,6 +84,21 @@ export default function ItineraryPage() {
                     {day.description}
                   </p>
 
+                  {/* Main Highlight */}
+                  {day.mainHighlight && (
+                    <div className="mb-4">
+                      <h4 className="font-semibold text-gray-900 mb-2 flex items-center">
+                        <span className="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span>
+                        Main Highlight
+                      </h4>
+                      <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border-l-4 border-yellow-500 p-3 rounded-r-lg">
+                        <p className="text-gray-800 font-medium text-sm">
+                          {day.mainHighlight}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
                   {/* Activities Preview */}
                   <div className="mb-4">
                     <h4 className="font-semibold text-gray-900 mb-2">Activities:</h4>
@@ -136,13 +121,13 @@ export default function ItineraryPage() {
                   <div className="space-y-2 mb-6">
                     {day.accommodation && (
                       <div className="flex items-center space-x-2 text-sm text-gray-600">
-                        <Calendar size={16} />
+                        <Bed size={16} />
                         <span className="truncate">{day.accommodation}</span>
                       </div>
                     )}
                     {day.transport && (
                       <div className="flex items-center space-x-2 text-sm text-gray-600">
-                        <MapPin size={16} />
+                        <Car size={16} />
                         <span className="truncate">{day.transport}</span>
                       </div>
                     )}
@@ -184,12 +169,48 @@ export default function ItineraryPage() {
           {/* Journey Summary */}
           <div className="bg-white rounded-xl shadow-lg p-8">
             <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">Journey Summary</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            {/* Trip Overview */}
+            <div className="text-center mb-8">
+              <p className="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                {tripData.summary}
+              </p>
+            </div>
+
+            {/* Quick Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+              <div className="bg-blue-50 p-4 rounded-lg text-center">
+                <div className="text-2xl font-bold text-blue-600 mb-1">{tripData.itinerary.length}</div>
+                <div className="text-sm text-gray-600">Days of Adventure</div>
+              </div>
+              <div className="bg-green-50 p-4 rounded-lg text-center">
+                <div className="text-2xl font-bold text-green-600 mb-1">{tripData.destinations.length}</div>
+                <div className="text-sm text-gray-600">Destinations</div>
+              </div>
+              <div className="bg-purple-50 p-4 rounded-lg text-center">
+                <div className="text-2xl font-bold text-purple-600 mb-1">3</div>
+                <div className="text-sm text-gray-600">Countries</div>
+              </div>
+              <div className="bg-orange-50 p-4 rounded-lg text-center">
+                <div className="text-2xl font-bold text-orange-600 mb-1">Arctic</div>
+                <div className="text-sm text-gray-600">Circle Crossing</div>
+              </div>
+              <div className="bg-indigo-50 p-4 rounded-lg text-center">
+                <div className="text-2xl font-bold text-indigo-600 mb-1">5</div>
+                <div className="text-sm text-gray-600">Northern Lights Days</div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* Destinations Visited */}
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Destinations Visited</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
+                  <MapPin size={20} className="text-blue-600 mr-2" />
+                  Destinations Visited
+                </h3>
                 <div className="space-y-3">
                   {tripData.destinations.map((destination, index) => (
-                    <div key={destination.id} className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                    <div key={destination.id} className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                       <div className="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">
                         {index + 1}
                       </div>
@@ -202,29 +223,93 @@ export default function ItineraryPage() {
                 </div>
               </div>
               
+              {/* Key Experiences */}
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Highlights</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
+                  <span className="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span>
+                  Key Experiences
+                </h3>
                 <div className="space-y-3">
                   <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
                     <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                    <span className="text-gray-700">Arctic Circle crossing in Rovaniemi</span>
+                    <span className="text-gray-700">Meet Santa Claus in Rovaniemi</span>
                   </div>
                   <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                    <span className="text-gray-700">Northern Lights hunting in Tromsø</span>
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span className="text-gray-700">Northern Lights hunting (5 days)</span>
                   </div>
                   <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                    <span className="text-gray-700">Medieval exploration in Tallinn</span>
+                    <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                    <span className="text-gray-700">UNESCO Old Town in Tallinn</span>
                   </div>
                   <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                    <span className="text-gray-700">Fjord cruising in Norway</span>
+                    <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                    <span className="text-gray-700">Arctic Fjord sightseeing</span>
                   </div>
                   <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                    <span className="text-gray-700">Finnish sauna experiences</span>
+                    <div className="w-2 h-2 bg-indigo-500 rounded-full"></div>
+                    <span className="text-gray-700">Traditional Finnish sauna</span>
                   </div>
+                  <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                    <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                    <span className="text-gray-700">Sami culture experience</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Unique Activities */}
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
+                  <Calendar size={20} className="text-blue-600 mr-2" />
+                  Unique Activities
+                </h3>
+                <div className="space-y-3">
+                  <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                    <span className="text-gray-700">Aurora Ice Floating</span>
+                  </div>
+                  <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span className="text-gray-700">Mushroom hunting tour</span>
+                  </div>
+                  <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                    <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                    <span className="text-gray-700">E-Fatbike adventure</span>
+                  </div>
+                  <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                    <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                    <span className="text-gray-700">Reindeer sledding</span>
+                  </div>
+                  <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                    <div className="w-2 h-2 bg-indigo-500 rounded-full"></div>
+                    <span className="text-gray-700">Santa Claus Express train</span>
+                  </div>
+                  <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                    <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                    <span className="text-gray-700">Arctic Circle crossing</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Journey Map */}
+            <div className="mt-8">
+              <h3 className="text-xl font-bold text-gray-900 mb-4 text-center">Journey Route</h3>
+              <div className="bg-gray-50 rounded-lg p-4">
+                <div className="flex items-center justify-center space-x-4 text-sm text-gray-600">
+                  <span className="font-semibold">Helsinki</span>
+                  <span>→</span>
+                  <span className="font-semibold">Tallinn</span>
+                  <span>→</span>
+                  <span className="font-semibold">Helsinki</span>
+                  <span>→</span>
+                  <span className="font-semibold">Rovaniemi</span>
+                  <span>→</span>
+                  <span className="font-semibold">Levi</span>
+                  <span>→</span>
+                  <span className="font-semibold">Kilpisjärvi</span>
+                  <span>→</span>
+                  <span className="font-semibold">Tromsø</span>
                 </div>
               </div>
             </div>

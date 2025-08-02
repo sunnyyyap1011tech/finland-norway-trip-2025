@@ -76,6 +76,19 @@ export default function Timeline({ itinerary }: TimelineProps) {
                   {day.description}
                 </p>
 
+                {/* Main Highlight of the Day */}
+                <div className="mb-6">
+                  <h4 className="font-semibold text-gray-900 mb-3 flex items-center">
+                    <span className="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span>
+                    Main Highlight of the Day
+                  </h4>
+                  <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border-l-4 border-yellow-500 p-4 rounded-r-lg">
+                    <p className="text-gray-800 font-medium">
+                      {day.mainHighlight || (day.activities.length > 0 ? day.activities[0] : 'Explore the beautiful surroundings and immerse yourself in the local culture.')}
+                    </p>
+                  </div>
+                </div>
+
                 {/* Activities */}
                 <div className="mb-6">
                   <h4 className="font-semibold text-gray-900 mb-3">Activities:</h4>

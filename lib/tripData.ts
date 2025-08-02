@@ -20,6 +20,7 @@ export interface DayItinerary {
   roomBedType?: string;
   transport?: string;
   hasNorthernLights?: boolean;
+  mainHighlight?: string;
 }
 
 export interface TripData {
@@ -43,7 +44,7 @@ export const tripData: TripData = {
       coordinates: [60.1699, 24.9384],
       description: "The vibrant capital of Finland, known for its modern architecture, beautiful islands, and rich cultural heritage.",
       imageUrl: "https://img.static-kl.com/images/media/9C7C504D-75B8-47D6-BF64D20B7C323F06",
-      videoUrl: "https://www.youtube.com/embed/8XQYVjSqX7E"
+      videoUrl: ""
     },
     {
       id: "tallinn",
@@ -52,7 +53,7 @@ export const tripData: TripData = {
       coordinates: [59.4370, 24.7536],
       description: "A charming medieval city with well-preserved old town, just a short ferry ride from Helsinki.",
       imageUrl: "https://lp-cms-production.imgix.net/2024-07/shutterstock1524147119.jpg?w=600&h=400",
-      videoUrl: "https://www.youtube.com/embed/8XQYVjSqX7E"
+      videoUrl: ""
     },
     {
       id: "rovaniemi",
@@ -61,7 +62,7 @@ export const tripData: TripData = {
       coordinates: [66.5039, 25.7294],
       description: "The official hometown of Santa Claus and the capital of Finnish Lapland, perfect for Arctic adventures.",
       imageUrl: "https://image.kkday.com/v2/image/get/w_960%2Cc_fit%2Cq_55%2Ct_webp/s1.kkday.com/product_184866/20240721140007_6pJ1g/jpg",
-      videoUrl: "https://www.youtube.com/embed/8XQYVjSqX7E"
+      videoUrl: ""
     },
     {
       id: "levi",
@@ -70,7 +71,7 @@ export const tripData: TripData = {
       coordinates: [67.8051, 24.8000],
       description: "Finland's premier ski resort and a year-round adventure destination in the heart of Lapland.",
       imageUrl: "https://www.discoveringfinland.com/wp-content/uploads/2023/05/2022_VisitLevi_Summer_LowRes_GFX3147.jpg",
-      videoUrl: "https://www.youtube.com/embed/8XQYVjSqX7E"
+      videoUrl: ""
     },
     {
       id: "kilpisjarvi",
@@ -79,7 +80,7 @@ export const tripData: TripData = {
       coordinates: [69.0475, 20.7947],
       description: "A remote village near the Three-Country Cairn, where Finland, Norway, and Sweden meet.",
       imageUrl: "https://q-xx.bstatic.com/xdata/images/hotel/max500/347099908.jpg?k=ce1750dca808cb4c7de99e9e0c6e54ec9b819407005244ffcf440c21c13a5ab3&o=",
-      videoUrl: "https://www.youtube.com/embed/8XQYVjSqX7E"
+      videoUrl: ""
     },
     {
       id: "tromso",
@@ -110,10 +111,11 @@ export const tripData: TripData = {
         "https://c8.alamy.com/comp/M5RG14/helsinki-finland-december-8-2016-view-of-helsinki-central-railway-M5RG14.jpg",
         "https://c8.alamy.com/comp/M5T733/helsinki-finland-view-of-helsinki-central-railway-station-in-evening-M5T733.jpg"
       ],
-      videos: ["https://www.youtube.com/embed/8XQYVjSqX7E"],
+      videos: [],
       accommodation: "Hotel Arthur",
       roomBedType: "Standard Twin Room",
-      transport: "Helsinki Airport Transfer"
+      transport: "Helsinki Airport Transfer",
+      mainHighlight: "Arrive in Helsinki and explore the vibrant city center around Central Railway Station"
     },
     {
       date: "2025-09-29 (Mon)",
@@ -137,9 +139,10 @@ export const tripData: TripData = {
         "https://oranatravel.com/wp-content/uploads/2018/11/helsinki-cathedral-senate-square.jpg",
         "https://media.tacdn.com/media/attractions-splice-spp-674x446/06/6c/6a/d7.jpg"
       ],
-      videos: ["https://www.youtube.com/embed/8XQYVjSqX7E"],
+      videos: [],
       accommodation: "Hotel Arthur",
-      roomBedType: "Standard Twin Room"
+      roomBedType: "Standard Twin Room",
+      mainHighlight: "Helsinki Private Walking Tour (3h) - Helsinki All Star Walk, covering historical and modern landmarks"
     },
     {
       date: "2025-09-30 (Tue)",
@@ -161,10 +164,11 @@ export const tripData: TripData = {
         "https://staytowander.com/wp-content/uploads/2024/11/Tallinn-Old-Town-768x576.jpg",
         "https://www.danflyingsolo.com/wp-content/uploads/2018/06/Big_One_Day_Tallinn-3.jpg"
       ],
-      videos: ["https://www.youtube.com/embed/8XQYVjSqX7E"],
+      videos: [],
       accommodation: "Hotel Arthur",
       roomBedType: "Standard Twin Room",
-      transport: "2-hour cruise Helsinki-Tallinn-Helsinki"
+      transport: "2-hour cruise Helsinki-Tallinn-Helsinki",
+      mainHighlight: "Day trip to Tallinn's UNESCO World Heritage Old Town via scenic cruise"
     },
     {
       date: "2025-10-01 (Wed)",
@@ -185,10 +189,11 @@ export const tripData: TripData = {
         "https://urbaki.com/gardening/wp-content/uploads/2024/04/Discovering-Forest-Gold-The-Hunt-for-Chanterelles.jpg",
         "https://finland.fi/wp-content/uploads/2022/09/117135566.jpg"
       ],
-      videos: ["https://www.youtube.com/embed/8XQYVjSqX7E"],
+      videos: [],
       accommodation: "Hotel Arthur",
       roomBedType: "Standard Twin Room",
-      transport: "Guided tour transport"
+      transport: "Guided tour transport",
+      mainHighlight: "7-hour guided mushroom hunting tour in Helsinki forests with campfire lunch"
     },
     {
       date: "2025-10-02 (Thu)",
@@ -210,9 +215,10 @@ export const tripData: TripData = {
         "https://c8.alamy.com/comp/2R75PBF/finland-lapland-rovaniemi-train-station-2R75PBF.jpg",
         "https://rail.cc/wp-content/uploads/2019/02/045_rovaniemi_station_05.jpg"
       ],
-      videos: ["https://www.youtube.com/embed/8XQYVjSqX7E"],
+      videos: [],
       accommodation: "Overnight on Santa Claus Express Train",
-      transport: "Santa Claus Express Train Helsinki-Rovaniemi (11 PM departure, 12-hour journey)"
+      transport: "Santa Claus Express Train Helsinki-Rovaniemi (11 PM departure, 12-hour journey)",
+      mainHighlight: "Overnight journey on the magical Santa Claus Express Train to Lapland"
     },
     {
       date: "2025-10-03 (Fri)",
@@ -236,11 +242,12 @@ export const tripData: TripData = {
         "https://www.travelinsightpedia.com/wp-content/uploads/2020/12/D092BC4C-BA03-472E-9BA5-85AE94682F16-1-1024x768.jpg",
         "https://santaclausvillage.info/wp-content/uploads/2023/06/Northern-Lights-above-kota-restaurant-and-sky-bar-Arctic-SnowHotel-_-Glass-Igloo-Rovaniemi-Lapland-Finland-3.jpg"
       ],
-      videos: ["https://www.youtube.com/embed/8XQYVjSqX7E"],
+      videos: [],
       accommodation: "Arctic City Hotel",
       roomBedType: "Classic Twin Room",
       transport: "Driver transfer from train station",
-      hasNorthernLights: true
+      hasNorthernLights: true,
+      mainHighlight: "Visit Santa Claus Village and meet Santa Claus in his official office"
     },
     {
       date: "2025-10-04 (Sat)",
@@ -264,10 +271,11 @@ export const tripData: TripData = {
         "https://apukkaresort.fi/wp-content/uploads/2024/03/Sauna-experiences-in-Apukka-Resort-Rovaniemi-Lapland-Finland-2-1.webp",
         "https://nordicodyssey.net/wp-content/uploads/2024/11/54166413015_8fcd35075f_k.jpg"
       ],
-      videos: ["https://www.youtube.com/embed/8XQYVjSqX7E"],
+      videos: [],
       accommodation: "Arctic City Hotel",
       roomBedType: "Classic Twin Room",
-      hasNorthernLights: true
+      hasNorthernLights: true,
+      mainHighlight: "Aurora Ice Floating experience - float in Arctic lake under the Northern Lights"
     },
     {
       date: "2025-10-05 (Sun)",
@@ -288,10 +296,11 @@ export const tripData: TripData = {
       images: [
 
       ],
-      videos: ["https://www.youtube.com/embed/8XQYVjSqX7E"],
+      videos: [],
       accommodation: "Arctic City Hotel",
       roomBedType: "Classic Twin Room",
-      transport: "Guided tour transport to Korouoma Nature Reserve"
+      transport: "Guided tour transport to Korouoma Nature Reserve",
+      mainHighlight: "6-hour guided hike to Korouoma Canyon and Auttiköngäs Waterfalls"
     },
     {
       date: "2025-10-06 (Mon)",
@@ -300,10 +309,10 @@ export const tripData: TripData = {
       activities: [
         "Driver pickup from Rovaniemi accommodation to bus station",
         "2.5-hour bus journey from Rovaniemi to Levi",
+        "Evening Northern Lights Hunting by Van",
         "Arrive in Levi and make own way to hotel",
         "Check into Levi Hotel Spa Resort",
         "Relax in open-air pools under the stars",
-        "Evening Northern Lights Hunting by Van",
         "Professional guide determines best locations for Aurora sightings",
         "Visit multiple spots for optimal Northern Lights viewing",
         "Sit back and enjoy the Aurora Borealis show"
@@ -315,11 +324,12 @@ export const tripData: TripData = {
         "https://d2ysej9jnfdoyq.cloudfront.net/ImageGen.ashx?Height=450&allowupsizing=true&format=jpg&image=%2Fmedia%2F13055395%2Ffinland_lapland_levi_levitunturi-spa-hotel_outdoor-hot-tubs.jpg&width=833",
         "https://www.discoveringfinland.com/wp-content/uploads/2013/09/Levi-Hotel-Spa-005-1200x800.jpg"
       ],
-      videos: ["https://www.youtube.com/embed/8XQYVjSqX7E"],
+      videos: [],
       accommodation: "Levi Hotel Spa Resort",
       roomBedType: "Standard Twin Room",
       transport: "Bus transfer Rovaniemi-Levi (2.5 hours)",
-      hasNorthernLights: true
+      hasNorthernLights: true,
+      mainHighlight: "Evening Northern Lights Hunting by Van in Levi's pristine wilderness"
     },
     {
       date: "2025-10-07 (Tue)",
@@ -340,9 +350,10 @@ export const tripData: TripData = {
         "https://live.staticflickr.com/65535/52703958197_1bbde8f36e_b.jpg",
         "https://d19lgisewk9l6l.cloudfront.net/assetbank/Hiking_Credit-_Levi_Tourism_53643.jpg"
       ],
-      videos: ["https://www.youtube.com/embed/8XQYVjSqX7E"],
+      videos: [],
       accommodation: "Levi Hotel Spa Resort",
-      roomBedType: "Standard Twin Room"
+      roomBedType: "Standard Twin Room",
+      mainHighlight: "E-Fatbike Tour exploring Levi's prettiest spots in Lapland"
     },
     {
       date: "2025-10-08 (Wed)",
@@ -365,10 +376,11 @@ export const tripData: TripData = {
         "https://q-xx.bstatic.com/xdata/images/hotel/max1024x768/73683501.jpg?k=3b643dc39325a9c26c96853cee26306ea7d3009a366dca7e11f7d7eb8bcded33&o=",
         "https://tundrea-holiday-resort.hotelsinfinland.net/data/Photos/OriginalPhoto/10879/1087933/1087933672/tundrea-holiday-resort-kilpisjarvi-photo-18.JPEG"
       ],
-      videos: ["https://www.youtube.com/embed/8XQYVjSqX7E"],
+      videos: [],
       accommodation: "Tundrea Holiday Resort",
       roomBedType: "Mountain View Cabin",
-      transport: "Bus transfer Levi-Kilpisjärvi (4 hours)"
+      transport: "Bus transfer Levi-Kilpisjärvi (4 hours)",
+      mainHighlight: "Arrive in Kilpisjärvi and check into Mountain View Cabin at Tundrea Holiday Resort"
     },
     {
       date: "2025-10-09 (Thu)",
@@ -391,10 +403,11 @@ export const tripData: TripData = {
         "https://tse4.mm.bing.net/th/id/OIP.0IMh6B8yhZuXSvncSns-QwHaE8?pid=Api",
         "https://res.cloudinary.com/manawa/image/private/f_auto%2Cc_limit%2Cw_3840%2Cq_auto/0cb6f89ba520712db7e7380146b5245b"
       ],
-      videos: ["https://www.youtube.com/embed/8XQYVjSqX7E"],
+      videos: [],
       accommodation: "Tundrea Holiday Resort",
       roomBedType: "Mountain View Cabin",
-      hasNorthernLights: true
+      hasNorthernLights: true,
+      mainHighlight: "Chasing the Northern Lights in Kilpisjärvi - Finland's best Aurora location (70% chance)"
     },
     {
       date: "2025-10-10 (Fri)",
@@ -422,10 +435,11 @@ export const tripData: TripData = {
         "https://static.wixstatic.com/media/572c50_668844a1583643609eff7574070362dc~mv2.jpeg/v1/fit/w_2500%2Ch_1330%2Cal_c/572c50_668844a1583643609eff7574070362dc~mv2.jpeg",
         "https://www.europaadventure.com/wp-content/uploads/2024/11/2-7.jpg"
       ],
-      videos: ["https://www.youtube.com/embed/8XQYVjSqX7E"],
+      videos: [],
       accommodation: "Traditional Saami Lavvo Tent",
       roomBedType: "Reindeer Hides with Winter-Insulated Sleeping Bags",
-      transport: "Private Transfer Kilpisjärvi-Tromsø (2.5 hours)"
+      transport: "Private Transfer Kilpisjärvi-Tromsø (2.5 hours)",
+      mainHighlight: "Overnight Sami Experience with reindeer sledding and traditional lavvo stay"
     },
     {
       date: "2025-10-11 (Sat)",
@@ -448,11 +462,12 @@ export const tripData: TripData = {
         "https://www.lozie.com/wp/wp-content/uploads/2017/03/5DSR7631.jpg",
         "https://www.lozie.com/wp/wp-content/uploads/2017/03/5DSR7698-960x1440.jpg",
       ],
-      videos: ["https://www.youtube.com/embed/8XQYVjSqX7E"],
+      videos: [],
       accommodation: "Quality Hotel Saga",
       roomBedType: "Standard Twin Room",
       transport: "Private transfer from previous location",
-      hasNorthernLights: true
+      hasNorthernLights: true,
+      mainHighlight: "Evening Northern Lights Chasing in Tromsø - 7-hour small group tour"
     },
     {
       date: "2025-10-12 (Sun)",
@@ -478,9 +493,10 @@ export const tripData: TripData = {
         "https://findingalexx.com/wp-content/uploads/2017/12/tromso-fjord-1000x1300-1.jpg",
         "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/06/96/95/c8.jpg"
       ],
-      videos: ["https://www.youtube.com/embed/8XQYVjSqX7E"],
+      videos: [],
       accommodation: "Quality Hotel Saga",
-      roomBedType: "Standard Twin Room"
+      roomBedType: "Standard Twin Room",
+      mainHighlight: "Arctic Fjord Sightseeing tour exploring Norway's beautiful fjords"
     },
     {
       date: "2025-10-13 (Mon)",
@@ -508,9 +524,10 @@ export const tripData: TripData = {
         "https://thumbs.dreamstime.com/z/tromso-cityscape-arctic-cathedral-28755959.jpg",
         "https://thumbs.dreamstime.com/b/arctic-cathedral-tromso-beautiful-modern-70513499.jpg"
       ],
-      videos: ["https://www.youtube.com/embed/8XQYVjSqX7E"],
+      videos: [],
       accommodation: "Quality Hotel Saga",
-      roomBedType: "Standard Twin Room"
+      roomBedType: "Standard Twin Room",
+      mainHighlight: "Explore Tromsø on your own and visit the stunning Arctic Cathedral"
     },
     {
       date: "2025-10-14 (Tue)",
@@ -528,7 +545,8 @@ export const tripData: TripData = {
         "https://c8.alamy.com/comp/D5A6DP/airplanes-in-heavy-snow-at-tromso-airport-in-norway-D5A6DP.jpg",
         "https://media.tacdn.com/media/attractions-splice-spp-674x446/09/b0/9e/e9.jpg"
       ],
-      transport: "Airport transfer to Tromsø airport"
+      transport: "Airport transfer to Tromsø airport",
+      mainHighlight: "Departure day - transfer to Tromsø airport for your flight home"
     }
   ]
 }; 
