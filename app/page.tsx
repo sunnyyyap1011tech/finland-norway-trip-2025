@@ -3,10 +3,11 @@
 import { useState, useRef } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { MapPin, Calendar, Globe, ArrowRight, Play } from 'lucide-react';
+import { MapPin, Calendar, Globe, ArrowRight, Play, UtensilsCrossed } from 'lucide-react';
 import { tripData } from '@/lib/tripData';
 import MapWrapper from '@/components/MapWrapper';
 import Timeline from '@/components/Timeline';
+import FoodRecommendations from '@/components/FoodRecommendations';
 import NorthernLightsIcon from '@/components/NorthernLightsIcon';
 
 export default function HomePage() {
@@ -86,7 +87,8 @@ export default function HomePage() {
             {[
               { id: 'summary', label: 'Summary', icon: Globe },
               { id: 'map', label: 'Interactive Map', icon: MapPin },
-              { id: 'timeline', label: 'Timeline', icon: Calendar }
+              { id: 'timeline', label: 'Timeline', icon: Calendar },
+              { id: 'foods', label: 'Foods Recommendation', icon: UtensilsCrossed }
             ].map(({ id, label, icon: Icon }) => (
               <button
                 key={id}
@@ -398,6 +400,18 @@ export default function HomePage() {
               </p>
             </div>
             <Timeline itinerary={tripData.itinerary} />
+          </motion.div>
+        )}
+
+        {/* Foods Recommendation Section */}
+        {activeSection === 'foods' && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="space-y-8"
+          >
+            <FoodRecommendations destinations={tripData.destinations} />
           </motion.div>
         )}
       </div>
